@@ -1,37 +1,50 @@
-# http-browserify
+# chrome-https
 
-The
-[http](http://nodejs.org/docs/v0.4.10/api/all.html#hTTP) module from node.js,
-but for browsers.
+This is a fork of https://github.com/substack/http-browserify
 
-When you `require('http')` in
-[browserify](http://github.com/substack/node-browserify),
-this module will be loaded.
+The reason for the fork is that [browserify https](https://github.com/substack/https-browserify/blob/master/index.js)
+is a copy of the [http](https://github.com/substack/http-browserify) but with the scheme change. 
+
+This breaks in chromiumify as[the full http stack](https://github.com/jscissr/http-node) guards against using the incorrect protocol.
+
+So to use the [https](https://nodejs.org/api/https.html) module from node.js in chrome apps the [http](https://github.com/substack/http-browserify) module
+has been taken the update applied and published as chome-https.
+
+When you `require('https')` in a
+[chromiumify](http://github.com/chromiumify/chromiumify) app, this module will be loaded.
 
 # example
 
 ``` js
-var http = require('http');
+var https = require('https');
 
-http.get({ path : '/beep' }, function (res) {
-    var div = document.getElementById('result');
-    div.innerHTML += 'GET /beep<br>';
-    
-    res.on('data', function (buf) {
-        div.innerHTML += buf;
-    });
-    
-    res.on('end', function () {
-        div.innerHTML += '<br>__END__';
-    });
+var options = {
+  hostname: 'encrypted.google.com',
+  port: 443,
+  path: '/',
+  method: 'GET'
+};
+
+var req = https.request(options, function(res) {
+  console.log("statusCode: ", res.statusCode);
+  console.log("headers: ", res.headers);
+
+  res.on('data', function(d) {
+    process.stdout.write(d);
+  });
+});
+req.end();
+
+req.on('error', function(e) {
+  console.error(e);
 });
 ```
 
 # http methods
 
-var http = require('http');
+var https = require('https');
 
-## var req = http.request(opts, cb)
+## var req = https.request(opts, cb)
 
 where `opts` are:
 
@@ -44,13 +57,13 @@ where `opts` are:
 
 The callback will be called with the response object.
 
-## var req = http.get(options, cb)
+## var req = https.get(options, cb)
 
 A shortcut for
 
 ``` js
 options.method = 'GET';
-var req = http.request(options, cb);
+var req = https.request(options, cb);
 req.end();
 ```
 
@@ -90,32 +103,8 @@ Return an http header, if set. `key` is case-insensitive.
 * res.statusCode, the numeric http response code
 * res.headers, an object with all lowercase keys
 
-# compatibility
 
-This module has been tested and works with:
-
-* Internet Explorer 5.5, 6, 7, 8, 9
-* Firefox 3.5
-* Chrome 7.0
-* Opera 10.6
-* Safari 5.0
-
-Multipart streaming responses are buffered in all versions of Internet Explorer
-and are somewhat buffered in Opera. In all the other browsers you get a nice
-unbuffered stream of `"data"` events when you send down a content-type of
-`multipart/octet-stream` or similar.
-
-# protip
-
-You can do:
-
-````javascript
-var bundle = browserify({
-    require : { http : 'http-browserify' }
-});
-````
-
-in order to map "http-browserify" over `require('http')` in your browserified
+in order to map "chrome-https" over `require('https')` in your browserified
 source.
 
 # install
@@ -123,7 +112,7 @@ source.
 With [npm](https://npmjs.org) do:
 
 ```
-npm install http-browserify
+npm install chrome-https
 ```
 
 # license

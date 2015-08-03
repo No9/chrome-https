@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  
+  "name": "chrome-https",
+  "version": "0.0.1",
+  
+  "app": {
+    "background": {
+      "scripts": [
+        "background.js"
+      ]
+    }
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "system.network",
+    "*://encrypted.google.com/*"
+  ],
+  "sockets": {
+    "tcp": {
+      "connect": ["*:*"]
+    },
+    "udp": {"send":["*:*"], "bind":["*:*"], "multicastMembership": ""},
+    "tcpServer" : {
+      "listen": [":1337"]
+    }
+  }
+}

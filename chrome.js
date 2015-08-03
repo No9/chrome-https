@@ -1,13 +1,14 @@
-var http = module.exports;
+var https = module.exports;
 var EventEmitter = require('events').EventEmitter;
 var Request = require('./lib/request');
 var url = require('url')
 
-http.request = function (params, cb) {
+https.request = function (params, cb) {
     if (typeof params === 'string') {
         params = url.parse(params)
     }
     if (!params) params = {};
+    params.scheme = 'https';
     if (!params.host && !params.port) {
         params.port = parseInt(window.location.port, 10);
     }
@@ -39,15 +40,15 @@ http.request = function (params, cb) {
     return req;
 };
 
-http.get = function (params, cb) {
+https.get = function (params, cb) {
     params.method = 'GET';
-    var req = http.request(params, cb);
+    var req = https.request(params, cb);
     req.end();
     return req;
 };
 
-http.Agent = function () {};
-http.Agent.defaultMaxSockets = 4;
+https.Agent = function () {};
+https.Agent.defaultMaxSockets = 4;
 
 var xhrHttp = (function () {
     if (typeof window === 'undefined') {
@@ -58,8 +59,8 @@ var xhrHttp = (function () {
     }
     else if (window.ActiveXObject) {
         var axs = [
-            'Msxml2.XMLHTTP.6.0',
-            'Msxml2.XMLHTTP.3.0',
+            'Msxml2.XMLhttps.6.0',
+            'Msxml2.XMLhttps.3.0',
             'Microsoft.XMLHTTP'
         ];
         for (var i = 0; i < axs.length; i++) {
@@ -85,7 +86,7 @@ var xhrHttp = (function () {
     }
 })();
 
-http.STATUS_CODES = {
+https.STATUS_CODES = {
     100 : 'Continue',
     101 : 'Switching Protocols',
     102 : 'Processing',                 // RFC 2518, obsoleted by RFC 4918
