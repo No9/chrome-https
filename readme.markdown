@@ -3,7 +3,7 @@
 This is a fork of https://github.com/substack/http-browserify
 
 The reason for the fork is that [browserify https](https://github.com/substack/https-browserify/blob/master/index.js) 
-is `inherits` the [http implementation](https://github.com/substack/http-browserify) but with the scheme change.
+`inherits` the [http implementation](https://github.com/substack/http-browserify) but with the scheme change.
 
 This breaks in chromiumify as[the full http stack](https://github.com/jscissr/http-node) guards against using the incorrect protocol.
 
