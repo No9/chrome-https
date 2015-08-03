@@ -2,13 +2,13 @@
 
 This is a fork of https://github.com/substack/http-browserify
 
-The reason for the fork is that [browserify https](https://github.com/substack/https-browserify/blob/master/index.js)
-is a copy of the [http](https://github.com/substack/http-browserify) but with the scheme change. 
+The reason for the fork is that [browserify https](https://github.com/substack/https-browserify/blob/master/index.js) 
+is `inherits` the [http implementation](https://github.com/substack/http-browserify) but with the scheme change.
 
 This breaks in chromiumify as[the full http stack](https://github.com/jscissr/http-node) guards against using the incorrect protocol.
 
-So to use the [https](https://nodejs.org/api/https.html) module from node.js in chrome apps the [http](https://github.com/substack/http-browserify) module
-has been taken the update applied and published as chome-https.
+So to use the [https](https://nodejs.org/api/https.html) module from node.js in chrome apps the [http](https://github.com/substack/http-browserify) module 
+has been taken, the [scheme update applied](https://github.com/No9/chrome-https/blob/master/chrome.js#L11), and published as [chome-https](https://www.npmjs.com/package/chrome-https).
 
 When you `require('https')` in a
 [chromiumify](http://github.com/chromiumify/chromiumify) app, this module will be loaded.
