@@ -1,14 +1,16 @@
 # chrome-https
 
-This is a fork of https://github.com/substack/http-browserify
+This is a fork of https://www.npmjs.com/package/stream-http 
 
-The reason for the fork is that [browserify https](https://github.com/substack/https-browserify/blob/master/index.js) 
-`inherits` the [http implementation](https://github.com/substack/http-browserify) but with the scheme change.
+There are two reasons for the fork
 
+1. A call to `https.request` with an options parameter without a scheme but with a port throws an error in chrome-apps
+
+2. The default https-browserify `inherits` the all the calls from which ever `http` is required but with the scheme change. 
 This breaks in chromiumify as[the full http stack](https://github.com/jscissr/http-node) guards against using the incorrect protocol.
 
-So to use the [https](https://nodejs.org/api/https.html) module from node.js in chrome apps the [http](https://github.com/substack/http-browserify) module 
-has been taken, the [scheme update applied](https://github.com/No9/chrome-https/blob/master/chrome.js#L11), and published as [chome-https](https://www.npmjs.com/package/chrome-https).
+So to use the [https](https://nodejs.org/api/https.html) module from node.js in chrome apps the [stream-http](https://www.npmjs.com/package/stream-http) module 
+has been taken, the [scheme update applied](https://github.com/No9/chrome-https/blob/master/http.js), and published as [chome-https](https://www.npmjs.com/package/chrome-https).
 
 When you `require('https')` in a
 [chromiumify](http://github.com/chromiumify/chromiumify) app, this module will be loaded.

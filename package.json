@@ -1,6 +1,6 @@
 {
   "name": "chrome-https",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "https module compatability for chrome apps",
   "main": "main.js",
   "browserify": "chrome.js",
@@ -13,11 +13,16 @@
     "test": "browserify test/chrome-app/index.js -o test/chrome-app/bundle.js && node test/runner.js"
   },
   "dependencies": {
-    "Base64": "~0.2.0",
-    "inherits": "~2.0.1"
+    "builtin-status-codes": "~1.0.0",
+    "foreach": "^2.0.5",
+    "indexof": "0.0.1",
+    "inherits": "^2.0.1",
+    "object-keys": "1.0.4",
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
-    "launch-chrome-app": "^1.0.1"
+    "launch-chrome-app": "^1.0.1",
+    "through2": "^2.0.0"
   },
   "repository": {
     "type": "git",
