@@ -1,6 +1,6 @@
 {
   "name": "chrome-https",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "https module compatability for chrome apps",
   "main": "main.js",
   "browserify": "chrome.js",
